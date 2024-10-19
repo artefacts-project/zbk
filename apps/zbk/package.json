@@ -1,0 +1,42 @@
+{
+  "name": "zettelkasten",
+  "version": "0.0.1",
+  "private": true,
+  "main": ".vite/build/main.js",
+  "icon": "./src/assets/icons/app-icon.png",
+  "scripts": {
+    "dev": "vite --config ./vite.config.renderer.ts",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "test:unit": "vitest",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.23",
+    "@heroicons/vue": "^2.1.5",
+    "@vueuse/core": "^11.1.0",
+    "dayjs": "^1.11.13",
+    "electron-squirrel-startup": "^1.0.1",
+    "lodash.isequal": "^4.5.0",
+    "pinia": "^2.2.4",
+    "vue": "^3.5.12"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.5.0",
+    "@electron-forge/maker-deb": "^7.5.0",
+    "@electron-forge/maker-rpm": "^7.5.0",
+    "@electron-forge/maker-squirrel": "^7.5.0",
+    "@electron-forge/maker-zip": "^7.5.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.5.0",
+    "@electron-forge/plugin-vite": "^7.5.0",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "electron": "^33.0.1",
+    "vite": "^5.4.9"
+  }
+}

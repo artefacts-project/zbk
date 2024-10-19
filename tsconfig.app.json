@@ -1,0 +1,15 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["./apps/**/*", "./libraries/**/*"],
+  "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
+
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "lib": ["ES2021", "DOM"]
+  }
+}
