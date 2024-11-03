@@ -22,7 +22,7 @@
   "workspaces": [
     "prototypes/*",
     "libraries/*",
-    "apps/*"
+    "app/*"
   ],
   "private": true,
   "devDependencies": {

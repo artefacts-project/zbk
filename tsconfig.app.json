@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["./apps/**/*", "./libraries/**/*"],
+  "include": ["./app/**/*", "./libraries/**/*"],
   "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
 
   "compilerOptions": {
@@ -11,5 +11,12 @@
       "@/*": ["./src/*"]
     },
     "lib": ["ES2021", "DOM"]
-  }
+  },
+  "references": [
+    { "path": "./app" },
+    { "path": "./libraries/core" },
+    { "path": "./libraries/ipld" },
+    { "path": "./prototypes/overworld" },
+    { "path": "./prototypes/shifter" }
+  ]
 }
