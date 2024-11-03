@@ -1,7 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 import daisy from "daisyui";
+import path from "path";
+
 export default {
-    content: ["./**/index.html", "./**/entry.ts", "./**/App.vue", "./**/src/**/*.{vue,js,ts,jsx,tsx}"],
+    content: [
+        "!./**/node_modules/**/*.*",
+        "./app/index.html",
+        "./app/entry.ts",
+        "./app/App.vue",
+        "./**/src/**/*.{vue,js,ts,jsx,tsx}"
+    ],
     theme: {
         extend: {}
     },
