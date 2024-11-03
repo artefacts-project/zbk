@@ -1,11 +1,12 @@
 <template>
-    <div class="mt-4">...</div>
+  <header>Test</header>
+  <router-view></router-view>
 </template>
 
 <script lang="ts" setup>
-    import { onMounted } from "vue";
+  import { onMounted } from "vue";
 
-    onMounted(() => { });
+  onMounted(() => {});
 </script>
 
 <style scoped></style>
