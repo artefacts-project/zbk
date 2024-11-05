@@ -23,7 +23,7 @@
   "workspaces": [
     "prototypes/*",
     "libraries/*",
-    "app/*"
+    "app"
   ],
   "private": true,
   "dependencies": {

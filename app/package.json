@@ -18,7 +18,8 @@
     "publish": "electron-forge publish"
   },
   "dependencies": {
-    "@artefacts/overworld": "workspace:*",
+    "@artefacts/overworld": "^0.0.1",
+    "@artefacts/shifter": "^0.0.1",
     "electron-squirrel-startup": "^1.0.1"
   },
   "devDependencies": {
