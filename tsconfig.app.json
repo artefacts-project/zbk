@@ -16,6 +16,7 @@
     { "path": "./app" },
     { "path": "./libraries/core" },
     { "path": "./libraries/ipld" },
+    { "path": "./libraries/components" },
     { "path": "./prototypes/overworld" },
     { "path": "./prototypes/shifter" }
   ]

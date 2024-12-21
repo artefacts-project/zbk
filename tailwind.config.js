@@ -4,11 +4,10 @@ import path from "path";
 
 export default {
     content: [
-        "!./**/node_modules/**/*.*",
-        "./app/index.html",
-        "./app/entry.ts",
-        "./app/App.vue",
-        "./**/src/**/*.{vue,js,ts,jsx,tsx}"
+        path.resolve(__dirname, "./app/index.html"),
+        path.resolve(__dirname, "./app/entry.ts"),
+        path.resolve(__dirname, "./app/App.vue"),
+        path.resolve(__dirname, "./{app,libraries,prototypes}/**/src/**/*.{vue,js,ts,jsx,tsx}"),
     ],
     theme: {
         extend: {}
