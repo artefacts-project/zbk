@@ -9,19 +9,20 @@
 <script setup lang="ts">
   import { DraggableTabs } from "@artefacts/components";
   import { ref } from "vue";
+  import Test from "./Test.vue";
 
   const tabGroups = ref([
     [
-      { id: 1, name: "Tab 1", content: "Content for Tab 1" },
-      { id: 23, name: "Tab 2", content: "Content for Tab 2" }
+      { id: 1, name: "Tab 1", component: Test },
+      { id: 23, name: "Tab 2", component: Test }
     ],
     [
-      { id: 3, name: "Tab 3", content: "Content for Tab 3" },
-      { id: 44, name: "Tab 4", content: "Content for Tab 4" }
+      { id: 3, name: "Tab 3", component: Test },
+      { id: 44, name: "Tab 4", component: Test }
     ],
     [
-      { id: 5, name: "Tab 5", content: "Content for Tab 5" },
-      { id: 6, name: "Tab 6", content: "Content for Tab 6" }
+      { id: 5, name: "Tab 5", component: Test },
+      { id: 6, name: "Tab 6", component: Test }
     ]
   ]);
 </script>

@@ -1,6 +1,7 @@
 <template>
   <TabGroup :selectedIndex="selectedTab" @change="changeTab">
     <TabList role="tablist" ref="toDrag" class="flex tabs tabs-lifted w-full h-8">
+      <!-- use index instead of tab.id because of a bug in the tab component -->
       <Tab v-for="(tab, index) in items" :key="index" role="tab" as="template" class="draggable-tab tab">
         <div @mousedown.capture.stop @click.capture.stop="setTab(tab.id)">{{ tab.name }}</div>
       </Tab>
@@ -8,7 +9,7 @@
     </TabList>
     <TabPanels>
       <TabPanel v-for="(tab, index) in items" :key="index" class="p-4 tab-border">
-        {{ tab.content }}
+        <component :is="tab.component" v-bind="tab?.componentProps ?? {}" />
       </TabPanel>
     </TabPanels>
   </TabGroup>
@@ -16,10 +17,11 @@
 
 <script setup lang="ts">
   import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
+  import type { Component } from "vue";
   import { onMounted, ref } from "vue";
   import { useDraggable } from "vue-draggable-plus";
 
-  type TabGroupDef = { id: number; name: string; content: string }[];
+  type TabGroupDef = { id: number; name: string; component: Component, componentProps?: any }[];
 
   const props = defineProps<{ tabs: TabGroupDef; group?: string }>();
 
@@ -39,6 +41,7 @@
 
   const draggable = useDraggable(toDrag, items, {
     animation: 150,
+    group: props.group,
     onStart(event) {
       if (event?.data?.id) {
         setTab(event.data.id);
@@ -62,7 +65,13 @@
         changeTab((event?.oldIndex ?? 1) - 1);
       }
     },
-    group: props.group
+    onSort(event) {
+      if (event?.data?.id) {
+        if (items.value.find((tab) => tab.id === event.data.id)) {
+          setTab(event.data.id);
+        }
+      }
+    }
   });
 
   onMounted(() => {});
