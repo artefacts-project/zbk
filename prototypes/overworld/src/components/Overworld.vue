@@ -9,13 +9,15 @@
       class="flex-1"
     >
       <DraggableTabs
+        :id="tabGroup.id"
         :tabs="tabGroup.tabs"
         :group="'organizers'"
         :buttons="tabGroup.buttons"
         @action="executeAction($event.type)"
-        @change-tab="tabGroup.activeTab = $event"
+        @change-tab="activeTabs[tabGroup.id] = $event"
+        @change-index="teleportId += 1"
       >
-        <div :id="`overworld-${tabGroup.id}`" />
+        <div :id="`${teleportConstant}-${teleportId}-${tabGroup.id}`" />
       </DraggableTabs>
     </div>
   </div>
@@ -41,7 +43,7 @@
 
 <script setup lang="ts">
   import { DraggableTabs } from "@artefacts/components";
-  import { markRaw, ref, watch } from "vue";
+  import { markRaw, nextTick, reactive, ref, watch } from "vue";
   import type { Component } from "vue";
   import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/vue/24/outline";
   import ClipboardView from "./ClipboardView.vue";
@@ -62,7 +64,14 @@
     RECENT = "recent",
     DRAFTS = "drafts",
     CREATED = "created",
-    FOLDER = "folder"
+    FOLDER = "folder",
+    SEARCH = "search"
+  }
+
+  enum AreaType {
+    SHARING = "sharing",
+    CREATING = "creating",
+    NAVIGATING = "navigating"
   }
 
   type TabDef = {
@@ -75,6 +84,9 @@
 
   const tabMounted = ref(false);
   const tabContainer = ref();
+
+  const teleportId = ref(1);
+  const teleportConstant = "organizer";
 
   const tabs = ref<TabDef>({
     [ComponentType.CLIPBOARD]: {
@@ -111,6 +123,11 @@
       name: "Directory",
       deletable: false,
       component: markRaw(FolderView)
+    },
+    [ComponentType.SEARCH]: {
+      name: "Search",
+      deletable: true,
+      component: markRaw(SearchView)
     }
   });
 
@@ -126,7 +143,7 @@
 
   const tabGroups = ref([
     {
-      id: "sharing",
+      id: AreaType.SHARING,
       activeTab: ComponentType.CLIPBOARD,
       tabs: [ComponentType.CLIPBOARD, ComponentType.SELECTION].map(createTabGroupDef),
       buttons: [
@@ -135,16 +152,16 @@
       ]
     },
     {
-      id: "creating",
+      id: AreaType.CREATING,
       activeTab: ComponentType.ADD,
-      tabs: [ComponentType.ADD].map(createTabGroupDef),
+      tabs: [ComponentType.ADD, ComponentType.SEARCH].map(createTabGroupDef),
       buttons: [
         { icon: MagnifyingGlassIcon, action: "search" },
         { icon: PlusIcon, action: "add-group" }
       ]
     },
     {
-      id: "navigating",
+      id: AreaType.NAVIGATING,
       activeTab: ComponentType.RECENT,
       tabs: [
         ComponentType.RECENT,
@@ -155,12 +172,33 @@
     }
   ]);
 
+  const activeTabs = reactive({
+    [AreaType.SHARING]: ComponentType.CLIPBOARD,
+    [AreaType.CREATING]: ComponentType.ADD,
+    [AreaType.NAVIGATING]: ComponentType.RECENT
+  });
+
+  const findArea = (comp: ComponentType) => {
+    for (const [key, value] of Object.entries(activeTabs)) {
+      try {
+        if (value && value.includes(comp)) {
+          return key;
+        }
+      } catch (e) {
+        //TODO: add error handling
+        return null;
+      }
+    }
+    return null;
+  };
+
   const canTeleport = (comp: ComponentType) => {
-    return !!tabGroups.value.find((group) => group.activeTab === comp);
+    return !!findArea(comp);
   };
 
   const teleportTo = (comp: ComponentType) => {
-    return `#overworld-${tabGroups.value.find((group) => group.activeTab === comp)?.id ?? ""}`;
+    const area = findArea(comp);
+    return `#${teleportConstant}-${teleportId.value}-${area ? area : ""}`;
   };
 
   watch(tabContainer, (newValue) => {
