@@ -6,7 +6,7 @@
     <TabList
       role="tablist"
       ref="toDrag"
-      class="flex tabs tabs-lifted w-full h-8"
+      class="tabs tabs-lifted"
     >
       <Tab
         v-for="(tab, index) in items"
@@ -16,7 +16,6 @@
         class="draggable-tab tab"
       >
         <div
-          class="tab-content flex"
           @mouseenter="showFix = index"
           @mouseleave="showFix = null"
         >
@@ -28,46 +27,48 @@
           </div>
           <XMarkIcon
             v-if="tab.closable !== false"
-            class="ml-1 h-4 w-4 cursor-pointer"
+            class="ml-1 h-4 w-4 cursor-pointer hover:shadow-inner hover:rounded-lg"
             @click.stop="closeTab(index)"
           />
           <LockClosedIcon
-            v-if="tab.fixable !== false && !tab.fixed && showFix === index"
-            class="ml-1 h-4 w-4 cursor-pointer"
+            v-if="tab.fixable && !tab.fixed && showFix === index"
+            class="ml-1 h-4 w-4 cursor-pointer hover:shadow-inner hover:rounded-lg"
             @click.stop="toggleFix(index)"
           />
           <LockOpenIcon
-            v-if="tab.fixable !== false && tab.fixed && showFix === index"
-            class="ml-1 h-4 w-4 cursor-pointer"
+            v-if="tab.fixable && tab.fixed && showFix === index"
+            class="ml-1 h-4 w-4 cursor-pointer hover:shadow-inner hover:rounded-lg"
             @click.stop="toggleFix(index)"
           />
         </div>
       </Tab>
-      <div class="tab non-draggable cursor-pointer">
+      <div
+        v-if="buttons"
+        role="tab"
+        class="tab non-draggable cursor-pointer"
+      >
         <button
           v-for="(button, index) in buttons"
           :key="`add-btn-${index}`"
-          :class="index !== 0 ? 'ml-4' : ''"
+          class="h-6 w-6 hover:shadow-inner hover:rounded-lg"
+          :class="index !== 0 ? 'ml-2' : ''"
           @click="$emit('action', { type: button.action })"
         >
           <component
             :is="button.icon"
-            class="h-4 w-4"
+            class="h-4 w-4 relative left-1"
           />
         </button>
       </div>
-      <div class="flex-1 tab additional-space-tab"></div>
+      <div class="tab additional-space-tab"></div>
     </TabList>
     <TabPanels>
       <TabPanel
         v-for="(tab, index) in items"
         :key="index"
-        class="p-4 tab-border"
+        class="p-4"
       >
-        <component
-          :is="tab.component"
-          v-bind="tab?.componentProps ?? {}"
-        />
+        <slot />
       </TabPanel>
     </TabPanels>
   </TabGroup>
@@ -76,14 +77,14 @@
 <script setup lang="ts">
   import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
   import type { Component } from "vue";
-  import { ref, onMounted } from "vue";
+  import { ref, onMounted, watch } from "vue";
   import { useDraggable } from "vue-draggable-plus";
   import { XMarkIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/vue/24/outline";
 
   type TabGroupDef = {
     id: number | string;
     name: string;
-    component: Component;
+    component: Component | (() => Component);
     closable?: boolean;
     fixable?: boolean;
     componentProps?: any;
@@ -94,15 +95,19 @@
   const props = defineProps<{
     tabs: TabGroupDef;
     group?: string;
-    buttons: { icon: Component; action: "string" }[];
+    buttons?: { icon: Component; action: "string" }[];
   }>();
 
-  defineEmits(["action"]);
+  const emit = defineEmits(["action", "changeTab"]);
 
   const toDrag = ref<HTMLElement | null>(null);
   const items = ref<TabGroupDefInternal>(props.tabs);
   const selectedTab = ref(0);
   const showFix = ref<null | number>(null);
+
+  const findTabByIndex = (index: number) => {
+    return items.value[index];
+  };
 
   function setTab(id: number) {
     selectedTab.value = items.value.findIndex((tab) => tab.id === id);
@@ -158,6 +163,10 @@
         }
       }
     }
+  });
+
+  watch(selectedTab, (newValue) => {
+    emit("changeTab", findTabByIndex(newValue).id);
   });
 
   onMounted(() => {});

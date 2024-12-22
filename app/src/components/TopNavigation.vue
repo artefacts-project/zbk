@@ -1,24 +1,43 @@
 <template>
   <div class="navbar bg-base-300 p-2 border-b border-secondary-content">
     <div class="navbar-start">
-      <a class="btn ml-5 btn-ghost text-xl gap-0">
+      <RouterLink
+        to="/"
+        class="btn ml-5 btn-ghost text-xl gap-0"
+      >
         <span class="ml-[7px] font-bold">arte</span>
         <span class="italic font-medium mt-[8px] mr-[2px] ml-[-2px]">f</span>
         <span class="italic font-medium">acts</span>&nbsp; project
-      </a>
+      </RouterLink>
     </div>
     <div class="navbar-center flex gap-2">
-      <RouterLink class="prototype-link" to="/overworld">Overworld</RouterLink>
-      <RouterLink class="prototype-link" to="/shifter">Shifter</RouterLink>
+      <ul class="menu menu-horizontal px-1">
+        <li>
+          <RouterLink to="/overworld">Overworld</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/shifter">Shifter</RouterLink>
+        </li>
+      </ul>
     </div>
     <div class="navbar-end">
       <div class="dropdown">
-        <div tabindex="0" role="button" class="btn w-36 m-1">
+        <div
+          tabindex="0"
+          role="button"
+          class="btn w-36 m-1"
+        >
           {{ currentTheme }}
           <ChevronDownIcon class="h-3 w-3 opacity-60" />
         </div>
-        <ul tabindex="0" class="dropdown-content p-2 shadow-2xl bg-base-300 rounded-box z-50">
-          <li v-for="theme in themes" :key="theme">
+        <ul
+          tabindex="0"
+          class="dropdown-content p-2 shadow-2xl bg-base-300 rounded-box z-50"
+        >
+          <li
+            v-for="theme in themes"
+            :key="theme"
+          >
             <input
               type="radio"
               name="theme-dropdown"
@@ -83,8 +102,4 @@
   setTheme(currentTheme.value);
 </script>
 
-<style scoped>
-.prototype-link {
-    text-decoration: underline;
-}
-</style>
+<style scoped></style>
