@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-300 p-2 border-b border-secondary-content">
+  <div class="navbar bg-base-300 px-2 py-0 border-b border-secondary-content">
     <div class="navbar-start">
       <RouterLink
         to="/"

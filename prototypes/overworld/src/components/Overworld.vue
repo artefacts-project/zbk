@@ -15,9 +15,9 @@
         :buttons="tabGroup.buttons"
         @action="executeAction($event.type)"
         @change-tab="activeTabs[tabGroup.id] = $event"
-        @change-index="teleportId += 1"
+        @change-index="refreshTeleport"
       >
-        <div :id="`${teleportConstant}-${teleportId}-${tabGroup.id}`" />
+        <div :id="`${teleportConstant}-${teleportCounter}-${tabGroup.id}`" />
       </DraggableTabs>
     </div>
   </div>
@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
   import { DraggableTabs } from "@artefacts/components";
-  import { markRaw, nextTick, reactive, ref, watch } from "vue";
+  import { markRaw, reactive, ref, watch } from "vue";
   import type { Component } from "vue";
   import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/vue/24/outline";
   import ClipboardView from "./ClipboardView.vue";
@@ -85,7 +85,7 @@
   const tabMounted = ref(false);
   const tabContainer = ref();
 
-  const teleportId = ref(1);
+  const teleportCounter = ref(1);
   const teleportConstant = "organizer";
 
   const tabs = ref<TabDef>({
@@ -198,8 +198,14 @@
 
   const teleportTo = (comp: ComponentType) => {
     const area = findArea(comp);
-    return `#${teleportConstant}-${teleportId.value}-${area ? area : ""}`;
+    return `#${teleportConstant}-${teleportCounter.value}-${area ? area : ""}`;
   };
+
+  const refreshTeleport = () => {
+    // workaround because TabPanel in DraggableTabs destroys the slot on every items change and if selected-tab value
+    // doesn't change there is no signal for an refresh
+    teleportCounter.value += 1;
+  }
 
   watch(tabContainer, (newValue) => {
     if (newValue) {

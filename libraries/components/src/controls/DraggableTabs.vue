@@ -112,7 +112,6 @@
 
   const derivedIndex = computed(() => findIndexByTab(selectedTab.value));
 
-
   const findIndexByTab = (tab: Identifier) => {
     if (tab) {
       const index = items.value.findIndex((element) => element.id === tab);
@@ -122,9 +121,8 @@
     }
   };
 
-  const setTab = async (id: Identifier) => {
+  const setTab = (id: Identifier) => {
     if (id === selectedTab.value) {
-      await nextTick();
       emit("changeIndex", findIndexByTab(id));
     }
     selectedTab.value = id;
