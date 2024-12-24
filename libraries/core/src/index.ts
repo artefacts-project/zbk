@@ -1,57 +1,192 @@
-export type Position = { pos: number };
+/*
+ *               Basic blocks
+ */
 
-export type Range = { start: number; end: number };
+export interface TextBlock {
+  text: string;
+}
 
-export type Paragraph = { index: number };
+export interface HashTag {
+  text: `#${string}`; //needs to be validated at runtime
+}
 
-export type SpatialQuadLayout = {
-    x: number;
-    y: number;
-    w: number;
-    h: number;
+export type Block = TextBlock | HashTag;
+
+/*
+ *               Marks and Directions
+ */
+
+export interface Position {
+  pos: number;
+}
+
+export interface Range {
+  start: number;
+  end: number;
+}
+
+export interface Paragraph {
+  index: number;
+}
+
+export interface Spatial2dBoxLayout {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+export type Mark = Position | Range | Paragraph;
+
+export type Direction = Spatial2dBoxLayout;
+
+export interface Sample {
+  samples: Zettel[];
+}
+
+/*
+ *               Mappa
+ */
+
+export interface ZettelMappa {
+  map: Mark;
+  artefact: Zettel;
+}
+
+export interface DirectionMappa {
+  map: Direction;
+  artefact: Zettel;
+}
+
+export interface RelationMappa {
+  map: Sample;
+  artefact: Relation;
+}
+
+/*
+ *               Relations
+ */
+
+export interface ZettelRelation {
+  links: DirectionMappa[];
+}
+
+// SampleRelation and ExpandedRelation could be redundant in combination with ZettelRelation
+export interface SampleRelation {
+  sample: RelationMappa | Relation;
+}
+
+export type ExpandedRelation = ZettelRelation & SampleRelation;
+
+export type Relation = (ZettelRelation | SampleRelation | ExpandedRelation) & { meta?: Zettel };
+
+/*
+ *               Zettel and Artefact
+ */
+
+export type ZettelParts = Block | Fold | Zettel;
+
+export type Zettel<T extends ZettelParts[] | undefined = undefined> = T extends undefined
+  ?
+      | {
+          includes: (Block | Fold | Zettel)[]; // can't use ZettelParts here because of circular dependency
+        }
+      | ZettelMappa
+  : {
+      includes: Exclude<T, undefined>;
+    };
+
+// alternative without circular depedency, but TypeScript throws "Type instantiation is excessively deep and possibly infinite."
+// export interface ZettelBase<T extends ZettelParts[] | undefined = undefined> {
+//   includes: T extends undefined ? ZettelParts[] : Exclude<T, undefined>;
+// }
+
+// export type Zettel<T extends ZettelParts[] | undefined = undefined> = T extends undefined
+//   ? ZettelBase | ZettelMappa
+//   : Zettel<Exclude<T, undefined>>;
+
+export type Artefact = Zettel | Relation | Fold; //needs SameInstanceZettel too?
+
+/*
+ *               Derivations/Folds/Condensations
+ */
+
+export type FoldTypes<T extends ZettelParts[] | undefined = undefined> = T extends undefined
+  ? Block | Zettel
+  : Zettel<Exclude<T, undefined>>;
+
+export interface ArtefactFold<
+  T extends Artefact | undefined = undefined,
+  K extends FoldTypes | undefined = undefined
+> {
+  fold: K extends undefined ? FoldTypes : Exclude<K, undefined>;
+  artefact: T extends undefined ? Artefact : Exclude<T, undefined>;
+}
+
+export type ListFold = {
+  fold: FoldTypes;
+  list: List | MultiList;
 };
 
-export type Directions = SpatialQuadLayout; // "Outer" relations, hints for a not yet known interpreter
+//TODO: check if this can be simplified
+export type Fold<
+  T extends Artefact | undefined = undefined,
+  K extends FoldTypes | undefined = undefined
+> = T extends undefined
+  ? K extends undefined
+    ? ArtefactFold<undefined, undefined> | ListFold
+    : ArtefactFold<undefined, Exclude<K, undefined>>
+  : K extends undefined
+    ? ArtefactFold<Exclude<T, undefined>, undefined>
+    : ArtefactFold<Exclude<T, undefined>, Exclude<K, undefined>>;
 
-export type ZettelMarks = Position | Range | Paragraph;
+/*
+ *               Organization tools with less focus on Relations
+ */
 
-export type Marks = ZettelMarks; // "Inner" relations, symbols/marks for the block they are attached to
+export type List = (Zettel | Fold)[]; //needs SameInstanceZettel too?
 
-export type TextBlock = {
-    text: string;
+export type MultiList = {
+  text: TextBlock;
+  list: List;
+}[];
+
+/*
+ *               Specific Lists and Folds
+ */
+
+export type SameInstanceZettel = Zettel & { __brand: "sameInstance" };
+
+export type EnrichedZettel = [
+  Fold<SameInstanceZettel, TextBlock>,
+  SameInstanceZettel,
+  Fold<SameInstanceZettel, Zettel<HashTag[]>>
+];
+
+// test if this works better than having it as a property on Relation
+export type MetaZettel = ArtefactFold<Relation, Zettel>;
+
+/*
+ *               Indices and Catalogues
+ */
+
+export type Suggestion = "temporal" | "spatial" | "sequential" | "parallel";
+
+export type IndexEntry = {
+  artefact: Artefact | IndexEntry;
+  suggestion: Suggestion;
 };
 
-export type Suggestion = "temporal" | "spatial" | "sequential";
-
-export type Mark = {
-    map: Marks; // + "Whole" to mark whole Zettel? Useful for Relation?
-    artefact: Zettel;
-    text: string; // necessary?
-};
-
-export type Direction = {
-    map: Directions;
-    artefact: Zettel | Mark | Relation;
-    text: string;
-};
-
-export type Mappa = Mark | Direction;
-
-// deliberately sequential but can be represented temporal
-export type Zettel = {
-    links: (TextBlock | Zettel | Relation)[]; //only if "text" property exists?
-    text: string;
-};
-
-// deliberately spatial, but can be represented sequentially or temporally,
-export type Relation = {
-    links: Direction[];
-    text: string;
-};
-
-// primarily temporal, but can be represented sequentially and can still make sense (like a catalogue)
-// where diffs make most sense, because links overlap to some degree => one zettel is part of more relations
 export type Index = {
-    links: Relation | Zettel;
-    text: string;
+  entries: IndexEntry[];
+};
+
+export type CatalogueEntry = {
+  artefact: Artefact | CatalogueEntry;
+  suggestion: Suggestion;
+  description: TextBlock;
+};
+
+export type Catalogue = {
+  entries: CatalogueEntry[];
 };
