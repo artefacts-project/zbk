@@ -9,7 +9,7 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),
-            "@artefacts/overworld": path.resolve(__dirname, '../prototypes/overworld/index.ts'),
+            "@artefacts/organizing-tabs": path.resolve(__dirname, '../prototypes/organizing-tabs/index.ts'),
             "@artefacts/components": path.resolve(__dirname, "../libraries/components/index.ts")
         },
     },

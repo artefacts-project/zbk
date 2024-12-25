@@ -1,2 +1,2 @@
 
-export { default as DraggableTabs } from "./src/controls/DraggableTabs.vue"
+export { default as DraggableTabs } from "./src/draggable/DraggableTabs.vue"

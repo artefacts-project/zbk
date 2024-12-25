@@ -13,10 +13,10 @@
     <div class="navbar-center flex gap-2">
       <ul class="menu menu-horizontal px-1">
         <li>
-          <RouterLink to="/overworld">Overworld</RouterLink>
+          <RouterLink to="/organizing-tabs">Organizing Tabs</RouterLink>
         </li>
         <li>
-          <RouterLink to="/shifter">Shifter</RouterLink>
+          <RouterLink to="/shifting-canvas">Shifting Canvas</RouterLink>
         </li>
       </ul>
     </div>

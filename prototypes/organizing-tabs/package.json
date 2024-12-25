@@ -1,12 +1,13 @@
 {
-    "name": "@artefacts/shifter",
+    "name": "@artefacts/organizing-tabs",
     "version": "0.0.1",
     "description": "",
     "main": "dist/index.cjs.js",
     "module": "dist/index.es.js",
     "types": "dist/types/index.d.ts",
     "scripts": {
-        "build": "vite build"
+        "build": "vite build",
+        "watch": "vite build --watch"
     },
     "author": "Predrag Vujic"
 }

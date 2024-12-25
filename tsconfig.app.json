@@ -6,6 +6,7 @@
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
+    "noEmitOnError": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
@@ -17,7 +18,7 @@
     { "path": "./libraries/core" },
     { "path": "./libraries/ipld" },
     { "path": "./libraries/components" },
-    { "path": "./prototypes/overworld" },
-    { "path": "./prototypes/shifter" }
+    { "path": "./prototypes/organizing-tabs" },
+    { "path": "./prototypes/shifting-canvas" }
   ]
 }

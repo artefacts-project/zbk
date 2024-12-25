@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Overworld } from "@artefacts/overworld";
-import { Shifter } from "@artefacts/shifter";
+import { OrganizingTabs } from "@artefacts/organizing-tabs";
+import { ShiftingCanvas } from "@artefacts/shifting-canvas";
  
 const routes = [
-  { path: "/", name: "Start", component: Overworld },
-  { path: "/overworld", name: "Overworld", component: Overworld },
-  { path: "/shifter", name: "Shifter", component: Shifter }
+  { path: "/", name: "Start", component: OrganizingTabs },
+  { path: "/organizing-tabs", name: "OrganizingTabs", component: OrganizingTabs },
+  { path: "/shifting-canvas", name: "ShiftingCanvas", component: ShiftingCanvas }
 ];
 
 const router = createRouter({

@@ -1,5 +1,5 @@
 <template>
-    <div>Shifter</div>
+    <div>Shifting Canvas</div>
 </template>
 
 <script setup lang="ts">

@@ -1,13 +1,12 @@
 {
-    "name": "@artefacts/overworld",
+    "name": "@artefacts/shifting-canvas",
     "version": "0.0.1",
     "description": "",
     "main": "dist/index.cjs.js",
     "module": "dist/index.es.js",
     "types": "dist/types/index.d.ts",
     "scripts": {
-        "build": "vite build",
-        "watch": "vite build --watch"
+        "build": "vite build"
     },
     "author": "Predrag Vujic"
 }
