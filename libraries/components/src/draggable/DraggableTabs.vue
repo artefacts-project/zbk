@@ -5,6 +5,7 @@
       ref="toDrag"
       class="tabs tabs-lifted"
     >
+    <!-- workaround: using index as key, tab.id does not work -->
       <Tab
         v-for="(tab, index) in items"
         :key="index"
@@ -146,7 +147,8 @@
       filter: ".non-draggable",
       async onRemove(event) {
         await nextTick();
-        setTab(firstElementId(event?.data?.id));
+        //TODO: use event info to set the next tab in line as active tab
+        setTab(firstElementId());
       },
       async onSort(event) {
         const id = event?.data?.id;
