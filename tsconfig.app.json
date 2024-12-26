@@ -11,7 +11,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "lib": ["ES2021", "DOM"]
+    "lib": ["ESNext", "DOM", "WebWorker"]
   },
   "references": [
     { "path": "./app" },

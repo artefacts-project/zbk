@@ -1,25 +1,9 @@
 {
   "name": "zettelkasten",
   "version": "0.0.1",
-  "private": true,
-  "main": ".vite/build/main.js",
-  "icon": "./src/assets/icons/app-icon.png",
-  "scripts": {
-    "dev": "vite --config ./vite.config.renderer.ts",
-    "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "build-only": "vite build",
-    "test:unit": "vitest",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish"
-  },
   "dependencies": {
-    "@artefacts/organizing-tabs": "^0.0.1",
-    "@artefacts/shifting-canvas": "^0.0.1",
+    "@artefacts/organizing-tabs": "0.0.1",
+    "@artefacts/shifting-canvas": "0.0.1",
     "electron-squirrel-startup": "^1.0.1"
   },
   "devDependencies": {
@@ -31,5 +15,21 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.5.0",
     "@electron-forge/plugin-vite": "^7.5.0",
     "electron": "^33.0.1"
+  },
+  "icon": "./src/assets/icons/app-icon.png",
+  "main": ".vite/build/main.js",
+  "private": true,
+  "scripts": {
+    "build": "run-p type-check \"build-only {@}\" --",
+    "build-only": "vite build",
+    "dev": "vite --config ./vite.config.renderer.ts",
+    "format": "prettier --write src/",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "make": "electron-forge make",
+    "package": "electron-forge package",
+    "preview": "vite preview",
+    "publish": "electron-forge publish",
+    "start": "electron-forge start",
+    "test:unit": "vitest"
   }
 }

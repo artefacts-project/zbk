@@ -1,12 +1,20 @@
 {
-    "name": "@artefacts/components",
-    "version": "0.0.1",
-    "main": "",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "tsc"
-    },
-    "devDependencies": {
-        "typescript": "^5.7.2"
-    }
+  "name": "@artefacts/components",
+  "version": "0.0.1",
+  "dependencies": {
+    "@headlessui/vue": "^1.7.23",
+    "@heroicons/vue": "^2.2.0",
+    "vue-draggable-plus": "^0.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  },
+  "main": "",
+  "peerDependencies": {
+    "vue": "^3.5.13"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "types": "dist/index.d.ts"
 }

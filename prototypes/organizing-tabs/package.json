@@ -1,13 +1,13 @@
 {
-    "name": "@artefacts/organizing-tabs",
-    "version": "0.0.1",
-    "description": "",
-    "main": "dist/index.cjs.js",
-    "module": "dist/index.es.js",
-    "types": "dist/types/index.d.ts",
-    "scripts": {
-        "build": "vite build",
-        "watch": "vite build --watch"
-    },
-    "author": "Predrag Vujic"
+  "name": "@artefacts/organizing-tabs",
+  "description": "",
+  "version": "0.0.1",
+  "author": "Predrag Vujic",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch"
+  },
+  "types": "dist/types/index.d.ts"
 }
