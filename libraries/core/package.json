@@ -4,9 +4,10 @@
   "devDependencies": {
     "typescript": "^5.7.2"
   },
-  "main": "",
+  "main": "index",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "watch": "tsc --watch"
   },
-  "types": "dist/index.d.ts"
+  "types": "index"
 }

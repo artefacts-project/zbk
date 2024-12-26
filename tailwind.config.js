@@ -12,7 +12,8 @@ export default {
   theme: {
     extend: {
       boxShadow: {
-        outer: "0 0 0.25rem rgba(0, 0, 0, 0.2)"
+        outer: "0 0 0.1rem rgba(0, 0, 0, 0.2)",
+        open: "-2px -2px 3px 0 rgb(0 0 0 / 0.1), -1px -1px 3px -1px rgb(0 0 0 / 0.1)"
       }
     }
   },

@@ -16,7 +16,10 @@
     "@electron-forge/plugin-vite": "^7.5.0",
     "electron": "^33.0.1"
   },
-  "icon": "./src/assets/icons/app-icon.png",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "icon": "./src/assets/favicon.ico",
   "main": ".vite/build/main.js",
   "private": true,
   "scripts": {

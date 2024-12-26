@@ -47,6 +47,9 @@
     "vitest": "^2.1.8",
     "vue-tsc": "^2.2.0"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "homepage": "https://github.com/artefacts-project/zbk#readme",
   "keywords": [
     "hypertext",
@@ -67,6 +70,7 @@
     "type-check": "vue-tsc --build --force",
     "upgrade-all": "npx npm-check-updates -u"
   },
+  "type": "module",
   "workspaces": [
     "prototypes/*",
     "libraries/*",

@@ -1,15 +1,13 @@
 <template>
-  <div>Add Notes
-    {{ test }}
-    <input v-model="test">
+  <div>
+    <BasicZettelList :show-add-control="true" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { ref } from "vue";
+  import { BasicZettelList } from "@artefacts/components";
 
-
-const test = ref("test")
 </script>
 
 <style scoped></style>

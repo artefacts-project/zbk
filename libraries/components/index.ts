@@ -1,2 +1,3 @@
-
-export { default as DraggableTabs } from "./src/draggable/DraggableTabs.vue"
+export * from "./src/draggable/draggable";
+export * from "./src/list/list";
+export * from "./src/editor/editor";

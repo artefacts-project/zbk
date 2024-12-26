@@ -6,7 +6,11 @@
     <div
       v-for="(tabGroup, index) in tabGroups"
       :key="tabGroup.id"
-      class="flex-1"
+      :class="[
+        index === 0 ? 'flex-1' : '',
+        index === 1 ? 'basis-5/12' : '',
+        index === 2 ? 'basis-4/12' : ''
+      ]"
     >
       <DraggableTabs
         :id="tabGroup.id"
@@ -43,17 +47,18 @@
 
 <script setup lang="ts">
   import { DraggableTabs } from "@artefacts/components";
-  import { markRaw, reactive, ref, watch } from "vue";
-  import type { Component } from "vue";
   import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/vue/24/outline";
-  import ClipboardView from "./ClipboardView.vue";
-  import SelectionView from "./SelectionView.vue";
+  import type { Component } from "vue";
+  import { markRaw, reactive, ref, watch } from "vue";
   import AddNotes from "./AddNotes.vue";
-  import SearchView from "./SearchView.vue";
-  import RecentNotes from "./RecentNotes.vue";
-  import DraftsView from "./DraftsView.vue";
+  import ClipboardView from "./ClipboardView.vue";
   import CreatedNotes from "./CreatedNotes.vue";
+  import DraftsView from "./DraftsView.vue";
   import FolderView from "./FolderView.vue";
+  import RecentNotes from "./RecentNotes.vue";
+  import SearchView from "./SearchView.vue";
+  import SelectionView from "./SelectionView.vue";
+  import WritingArea from "./WritingArea.vue";
 
   type TabActionTypes = "search" | "add-group";
 
@@ -61,6 +66,7 @@
     CLIPBOARD = "clipboard",
     SELECTION = "selection",
     ADD = "add",
+    WRITE = "write",
     RECENT = "recent",
     DRAFTS = "drafts",
     CREATED = "created",
@@ -78,6 +84,7 @@
     [key in ComponentType]: {
       name: string;
       deletable?: boolean;
+      noPadding?: boolean;
       component: Component;
     };
   };
@@ -103,6 +110,12 @@
       name: "Add",
       deletable: false,
       component: markRaw(AddNotes)
+    },
+    [ComponentType.WRITE]: {
+      name: "Write",
+      deletable: false,
+      noPadding: true,
+      component: markRaw(WritingArea)
     },
     [ComponentType.RECENT]: {
       name: "Recent",
@@ -136,7 +149,8 @@
     return {
       id: componentId,
       name: comp.name,
-      closable: comp.deletable
+      closable: comp.deletable,
+      noPadding: comp.noPadding
       //fixable
     };
   };
@@ -154,7 +168,7 @@
     {
       id: AreaType.CREATING,
       activeTab: ComponentType.ADD,
-      tabs: [ComponentType.ADD, ComponentType.SEARCH].map(createTabGroupDef),
+      tabs: [ComponentType.ADD, ComponentType.WRITE, ComponentType.SEARCH].map(createTabGroupDef),
       buttons: [
         { icon: MagnifyingGlassIcon, action: "search" },
         { icon: PlusIcon, action: "add-group" }
@@ -205,7 +219,7 @@
     // workaround because TabPanel in DraggableTabs destroys the slot on every items change and if selected-tab value
     // doesn't change there is no signal for an refresh
     teleportCounter.value += 1;
-  }
+  };
 
   watch(tabContainer, (newValue) => {
     if (newValue) {

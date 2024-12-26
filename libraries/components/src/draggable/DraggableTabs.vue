@@ -5,9 +5,9 @@
       ref="toDrag"
       class="tabs tabs-lifted"
     >
-    <!-- workaround: using index as key, tab.id does not work -->
+      <!-- workaround: using index as key, tab.id does not work -->
       <Tab
-        v-for="(tab, index) in items"
+        v-for="(tab, index) in tabItems"
         :key="index"
         role="tab"
         as="template"
@@ -61,9 +61,9 @@
     </TabList>
     <TabPanels>
       <TabPanel
-        v-for="(tab, index) in items"
+        v-for="(tab, index) in tabItems"
         :key="tab.id"
-        class="p-4"
+        :class="{ 'p-4': tab.noPadding !== true }"
       >
         <slot />
       </TabPanel>
@@ -87,6 +87,7 @@
     closable?: boolean;
     fixable?: boolean;
     componentProps?: any;
+    noPadding?: boolean;
   };
 
   type TabGroupDefInternal = TabGroupDef & { fixed?: boolean };
@@ -102,10 +103,10 @@
 
   const draggable = ref<any>(null);
   const toDrag = ref<HTMLElement | null>(null);
-  const items = ref<TabGroupDefInternal[]>(props.tabs);
+  const tabItems = ref<TabGroupDefInternal[]>(props.tabs);
 
   const firstElementId = () => {
-    return items.value?.[0]?.id ?? null;
+    return tabItems.value?.[0]?.id ?? null;
   };
 
   const selectedTab = ref(firstElementId());
@@ -115,7 +116,7 @@
 
   const findIndexByTab = (tab: Identifier) => {
     if (tab) {
-      const index = items.value.findIndex((element) => element.id === tab);
+      const index = tabItems.value.findIndex((element) => element.id === tab);
       return index < 0 ? 0 : index;
     } else {
       return 0;
@@ -130,18 +131,18 @@
   };
 
   const closeTab = (index: number) => {
-    items.value?.splice(index, 1);
+    tabItems.value?.splice(index, 1);
     setTab(firstElementId());
   };
 
   const toggleFix = (index: number) => {
-    const tab = items.value[index];
+    const tab = tabItems.value[index];
     tab.fixed = !tab.fixed;
   };
 
   const setDraggable = () => {
     draggable.value?.destroy();
-    draggable.value = useDraggable(toDrag, items, {
+    draggable.value = useDraggable(toDrag, tabItems, {
       animation: 150,
       group: props.group,
       filter: ".non-draggable",
@@ -153,7 +154,7 @@
       async onSort(event) {
         const id = event?.data?.id;
         if (id) {
-          if (items.value.find((tab) => tab.id === id)) {
+          if (tabItems.value.find((tab) => tab.id === id)) {
             await nextTick();
             setTab(id);
           }

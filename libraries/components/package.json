@@ -2,12 +2,18 @@
   "name": "@artefacts/components",
   "version": "0.0.1",
   "dependencies": {
+    "@artefacts/core": "0.0.1",
+    "@editorjs/editorjs": "^2.30.7",
+    "@editorjs/paragraph": "^2.11.7",
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
     "vue-draggable-plus": "^0.6.0"
   },
   "devDependencies": {
     "typescript": "^5.7.2"
+  },
+  "exports": {
+    ".": "./index.ts"
   },
   "main": "",
   "peerDependencies": {

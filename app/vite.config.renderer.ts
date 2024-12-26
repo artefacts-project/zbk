@@ -9,8 +9,11 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),
+            "@artefacts/components": path.resolve(__dirname, "../libraries/components/index.ts"),
+            "@artefacts/core": path.resolve(__dirname, "../libraries/core/index.ts"),
+            "@artefacts/ipld": path.resolve(__dirname, "../libraries/ipld/index.ts"),
             "@artefacts/organizing-tabs": path.resolve(__dirname, '../prototypes/organizing-tabs/index.ts'),
-            "@artefacts/components": path.resolve(__dirname, "../libraries/components/index.ts")
+            "@artefacts/shifting-canvas": path.resolve(__dirname, "../prototypes/shifting-canvas/index.ts")
         },
     },
     plugins: [vue()],
