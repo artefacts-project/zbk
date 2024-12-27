@@ -1,9 +1,10 @@
 <template>
-    <div>Shifting Canvas</div>
+  <div><SimpleCanvas /></div>
 </template>
 
 <script setup lang="ts">
-    
+  import { SimpleCanvas } from "@artefacts/components";
+
 </script>
 
 <style></style>

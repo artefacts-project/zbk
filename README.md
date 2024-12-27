@@ -6,7 +6,7 @@ A collection of prototypes revolving around the Zettelkasten method.
 
 ## Start the umbrella app
 
+In project root or `/app`:
 ```console
-cd app/
 npm run dev
 ```

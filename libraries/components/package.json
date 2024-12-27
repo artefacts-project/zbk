@@ -7,7 +7,9 @@
     "@editorjs/paragraph": "^2.11.7",
     "@headlessui/vue": "^1.7.23",
     "@heroicons/vue": "^2.2.0",
-    "vue-draggable-plus": "^0.6.0"
+    "konva": "^9.3.18",
+    "vue-draggable-plus": "^0.6.0",
+    "vue-konva": "^3.2.0"
   },
   "devDependencies": {
     "typescript": "^5.7.2"

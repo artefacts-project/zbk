@@ -65,6 +65,7 @@
   "private": true,
   "repository": "artefacts-project/zbk.git",
   "scripts": {
+    "dev": "npm run dev --workspace=app",
     "format": "prettier --write src/",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "type-check": "vue-tsc --build --force",
