@@ -73,17 +73,16 @@
 
 <script setup lang="ts">
   import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
-  import type { Component } from "vue";
-  import { ref, onMounted, watch, computed, nextTick, onUnmounted } from "vue";
+  import { LockClosedIcon, LockOpenIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+  import type { FunctionalComponent } from "vue";
+  import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
   import { useDraggable } from "vue-draggable-plus";
-  import { XMarkIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/vue/24/outline";
 
   type Identifier = number | string;
 
   type TabGroupDef = {
     id: Identifier;
     name: string;
-    component: Component | (() => Component);
     closable?: boolean;
     fixable?: boolean;
     componentProps?: any;
@@ -96,7 +95,7 @@
     id: Identifier;
     tabs: TabGroupDef[];
     group?: string;
-    buttons?: { icon: Component; action: "string" }[];
+    buttons?: { icon: FunctionalComponent; action: string }[];
   }>();
 
   const emit = defineEmits(["action", "changeTab", "changeIndex"]);

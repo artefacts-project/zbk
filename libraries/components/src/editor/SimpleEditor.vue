@@ -17,7 +17,7 @@
     content: ""
   });
 
-  const emit = defineEmits<{ changed: [string[]] }>(); // TODO: change type
+  const emit = defineEmits<{ changed: [string[]] }>();
 
   const editor = ref<EditorJS | null>(null);
   const editorElement = ref<HTMLElement | undefined>();
@@ -30,7 +30,6 @@
         [keyFixedReference]: FixedReference
       },
       onChange() {
-        console.log("onchange", editor.value.saver, editor.value.isReady, editor.value);
         editor.value
           ?.save?.()
           .then((data: OutputData) => {
@@ -41,7 +40,6 @@
           });
       },
       onReady() {
-        console.log("onready");
         if (props.content) {
           editor.value.render(convertToEditorJSFormat(props.content));
         }

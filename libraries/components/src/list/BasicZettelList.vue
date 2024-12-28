@@ -12,7 +12,7 @@
         v-if="zettel.isNew"
         class="my-2"
         :zettel="zettel"
-        @create="finishDraft(index)"
+        @create="$emit('create', zettel)"
       />
 
       <div v-else>
@@ -35,13 +35,13 @@
     showAddControl: false
   });
 
+  const emit = defineEmits<{
+    create: [ZettelService];
+  }>();
+
   const list = ref<ZettelService[]>(props.list);
   const addNewZettel = () => {
     list.value.push(new ZettelService());
-  };
-
-  const finishDraft = (index: number) => {
-    list.value[index].finishDraft();
   };
 </script>
 

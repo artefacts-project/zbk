@@ -182,7 +182,8 @@
         ComponentType.DRAFTS,
         ComponentType.CREATED,
         ComponentType.FOLDER
-      ].map(createTabGroupDef)
+      ].map(createTabGroupDef),
+      //buttons: []
     }
   ]);
 

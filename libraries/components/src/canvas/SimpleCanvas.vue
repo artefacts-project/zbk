@@ -67,6 +67,8 @@
   import { getCurrentInstance, onMounted, reactive, ref, watch } from "vue";
   import VueKonva from "vue-konva";
 
+  // TODO: try out https://konvajs.org/docs/sandbox/Web_Worker.html#sidebar
+
   // workaround: Register VueKonva globally
   const instance = getCurrentInstance();
   const appContext = instance?.appContext;

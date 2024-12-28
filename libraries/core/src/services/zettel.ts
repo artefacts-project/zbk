@@ -1,8 +1,9 @@
 import { Zettel, ZettelDraft } from "../..";
+import { zettelPartsSeparator } from "../utils/constants";
 
-const convertFromZettelToStringArray = (zettel: Zettel | ZettelDraft) =>
+const ensureStringArray = (zettel: Zettel | ZettelDraft) =>
   // @ts-ignore parts not yet resolved correctly
-  zettel.parts.map((part) => part.text);
+  Array.isArray(zettel.parts) ? zettel.parts.map((part) => part.text) : zettel.parts.split(zettelPartsSeparator)
 
 export class ZettelService {
   private zettel?: Zettel | ZettelDraft;
@@ -14,7 +15,7 @@ export class ZettelService {
       this._isNew = false;
       this.zettel = zettel;
       if (this.isDraft) {
-        this.content = convertFromZettelToStringArray(this.zettel);
+        this.content = ensureStringArray(this.zettel);
       }
     } else {
       this._isNew = true;
@@ -39,12 +40,12 @@ export class ZettelService {
   }
 
   asString() {
-    return this.content?.join("\n") ?? "Nothing to display"
+    return this.content?.join(zettelPartsSeparator) ?? "Nothing to display"
   }
 
   setContent(content: string[] | string) {
     if (this._isNew) {
-      this.content = Array.isArray(content) ? content : content.split("\n");
+      this.content = Array.isArray(content) ? content : content.split(zettelPartsSeparator);
     }
   }
 
