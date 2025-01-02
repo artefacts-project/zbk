@@ -47,8 +47,6 @@
     });
   });
 
-  watch(editor, (newValue) => console.log("editor", newValue));
-
   const insert = (inserts: Insertion[]) => {
     for (const [index, insert] of inserts.entries()) {
       editor.value?.blocks?.insert(

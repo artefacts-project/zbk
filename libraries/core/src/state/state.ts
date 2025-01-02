@@ -1,1 +1,2 @@
-export * from "./pinia-store";
+export * from "./rx-store";
+export * from "./compose";

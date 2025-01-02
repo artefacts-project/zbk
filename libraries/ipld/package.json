@@ -1,21 +1,19 @@
 {
-  "name": "@artefacts/core",
+  "name": "@artefacts/ipld",
   "version": "0.0.1",
   "dependencies": {
-    "rxjs": "^7.8.1"
+    "@artefacts/core": "0.0.1",
+    "@ipld/dag-json": "^10.2.3",
+    "blockstore-idb": "^2.0.1",
+    "multiformats": "^13.3.1"
   },
   "devDependencies": {
     "typescript": "^5.7.2"
-  },
-  "exports": {
-    ".": "./dist/index.js",
-    "./state": "./dist/src/state/state.js"
   },
   "main": "index",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch"
   },
-  "type": "module",
   "types": "index"
 }

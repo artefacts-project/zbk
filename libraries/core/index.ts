@@ -6,5 +6,7 @@ type DraftID = { draftId: string };
 export type Zettel<T extends ZettelParts[] | undefined = undefined> = ZettelBase<T> & UID;
 export type ZettelDraft<T extends ZettelParts[] | undefined = undefined> = ZettelBase<T> & DraftID;
 
+export type Artefact = Zettel;
+
 export * from "./src/services/zettel";
 export * from "./src/state/state";

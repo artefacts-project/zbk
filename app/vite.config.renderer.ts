@@ -9,6 +9,7 @@ export default defineConfig({
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),
+            "@store": path.resolve(__dirname, "./src/store/pinia-store.ts"),
             "@artefacts/components": path.resolve(__dirname, "../libraries/components/index.ts"),
             "@artefacts/core": path.resolve(__dirname, "../libraries/core/index.ts"),
             "@artefacts/ipld": path.resolve(__dirname, "../libraries/ipld/index.ts"),

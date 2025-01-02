@@ -16,7 +16,7 @@
       />
 
       <div v-else>
-        {{ zettel.asString() }}
+        {{ zettel.asString }}
       </div>
     </div>
   </div>

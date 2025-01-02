@@ -2,16 +2,16 @@
   <div>
     <BasicZettelList
       :show-add-control="true"
-      @create="dispatch.createNewZettel($event)"
+      @create="store.dispatch.createNewZettel($event)"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
   import { BasicZettelList } from "@artefacts/components";
-  import { useStore } from "@artefacts/core";
+  import { useStore } from "../../../../app/src/store/pinia-store"; //TODO: make import generic
 
-  const { dispatch } = useStore();
+  const store = useStore();
 </script>
 
 <style scoped></style>
