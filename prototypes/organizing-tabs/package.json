@@ -5,13 +5,13 @@
   "author": "Predrag Vujic",
   "dependencies": {
     "@artefacts/components": "0.0.1",
-    "@artefacts/core": "0.0.1"
+    "@artefacts/core": "0.0.1",
+    "rxjs": "^7.8.1"
   },
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.es.js",
+  "main": "index",
   "scripts": {
     "build": "vite build",
     "watch": "vite build --watch"
   },
-  "types": "dist/types/index.d.ts"
+  "types": "index"
 }

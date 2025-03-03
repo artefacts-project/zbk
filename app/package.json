@@ -4,6 +4,7 @@
   "dependencies": {
     "@artefacts/core": "0.0.1",
     "@artefacts/ipld": "0.0.1",
+    "@artefacts/components": "0.0.1",
     "@artefacts/organizing-tabs": "0.0.1",
     "@artefacts/shifting-canvas": "0.0.1",
     "electron-squirrel-startup": "^1.0.1"
@@ -36,5 +37,6 @@
     "publish": "electron-forge publish",
     "start": "electron-forge start",
     "test:unit": "vitest"
-  }
+  },
+  "type": "module"
 }

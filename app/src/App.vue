@@ -4,8 +4,12 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted } from "vue";
+  import { onMounted, provide } from "vue";
   import TopNavigation from "./components/TopNavigation.vue";
+
+
+  provide("draggable-group", "zbk");
+
 
   onMounted(() => {});
 </script>

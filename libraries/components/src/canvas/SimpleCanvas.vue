@@ -74,7 +74,7 @@
   const appContext = instance?.appContext;
   appContext?.app.use(VueKonva);
 
-  const stageRef = ref(null);
+  const stageRef = ref<Konva.Stage | null>(null);
   const layerRef = ref<Konva.Layer | null>(null);
 
   const stageConfig: Konva.StageConfig = reactive({
@@ -309,18 +309,18 @@
       const size = gridModes[gridMode.value].size;
       if (event.shiftKey) {
         texts.forEach((text) => {
-          text.x = text.x - size; //TODO: only move selected text
+          text.x = (text.x ?? 0) - size; //TODO: only move selected text
         });
       } else {
         texts.forEach((text) => {
-          text.x = text.x + size;
+          text.x = (text.x ?? 0) + size;
         });
       }
     }
   };
 
   const selectText = (text: Konva.TextConfig) => {
-    selectedTextId.value = text.id;
+    selectedTextId.value = text.id ?? null;
   };
 
   window.addEventListener("keydown", handleKeyDown);

@@ -3,6 +3,7 @@
     "declaration": true,
     "emitDeclarationOnly": false,
     "outDir": "./dist",
+    "noEmitOnError": false,
     "strict": true,
     "skipLibCheck": true,
     "composite": true,

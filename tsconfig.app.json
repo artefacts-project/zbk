@@ -8,7 +8,9 @@
     "module": "ESNext",
     "target": "ESNext",
     "noEmit": true,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
+    "skipLibCheck": true,
+    "strict": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

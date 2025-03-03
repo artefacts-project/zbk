@@ -41,13 +41,14 @@
       },
       onReady() {
         if (props.content) {
-          editor.value.render(convertToEditorJSFormat(props.content));
+          editor.value?.render(convertToEditorJSFormat(props.content));
         }
       }
     });
   });
 
   const insert = (inserts: Insertion[]) => {
+    // @ts-ignore does not recognize ES target
     for (const [index, insert] of inserts.entries()) {
       editor.value?.blocks?.insert(
         insert.type,

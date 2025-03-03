@@ -49,7 +49,7 @@
   import { DraggableTabs } from "@artefacts/components";
   import { MagnifyingGlassIcon, PlusIcon } from "@heroicons/vue/24/outline";
   import type { Component } from "vue";
-  import { markRaw, reactive, ref, watch } from "vue";
+  import { inject, markRaw, provide, reactive, ref, watch } from "vue";
   import AddNotes from "./AddNotes.vue";
   import ClipboardView from "./ClipboardView.vue";
   import CreatedNotes from "./CreatedNotes.vue";
@@ -59,6 +59,8 @@
   import SearchView from "./SearchView.vue";
   import SelectionView from "./SelectionView.vue";
   import WritingArea from "./WritingArea.vue";
+  // @ts-ignore path is not included in ts-config
+  import { useOrganizingTabsStore } from "../../../../app/src/store/pinia-store"; //TODO: make import generic
 
   type TabActionTypes = "search" | "add-group";
 
@@ -88,6 +90,10 @@
       component: Component;
     };
   };
+
+  const store = useOrganizingTabsStore();
+
+  provide("draggable-group", inject("draggable-group") ?? "organizers");
 
   const tabMounted = ref(false);
   const tabContainer = ref();
@@ -182,7 +188,7 @@
         ComponentType.DRAFTS,
         ComponentType.CREATED,
         ComponentType.FOLDER
-      ].map(createTabGroupDef),
+      ].map(createTabGroupDef)
       //buttons: []
     }
   ]);

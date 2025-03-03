@@ -5,7 +5,7 @@ import type { FixedReferenceData } from "../../editor/editor-types";
 export const keyFixedReference = "fixedReference";
 
 export default class FixedReference extends Paragraph {
-  constructor({ data, config, api }) {
+  constructor({ data, config, api }: any) {
     super({
       data,
       config,
@@ -23,6 +23,7 @@ export default class FixedReference extends Paragraph {
   save(toolsContent: HTMLElement): FixedReferenceData {
     return {
       text: toolsContent.innerHTML,
+      // @ts-ignore - data is not part of Paragraph
       reference: super.data?.reference ?? null
     };
   }

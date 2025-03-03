@@ -10,7 +10,7 @@
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"]

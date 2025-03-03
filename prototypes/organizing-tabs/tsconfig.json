@@ -2,5 +2,14 @@
   "extends": "../../tsconfig.json",
   "include": ["src/**/*", "index.ts"],
   "exclude": ["dist", "node_modules"],
-  "compilerOptions": { "composite": true }
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "strict": true,
+    "rootDir": "./",
+    "noEmitOnError": false
+  }
 }

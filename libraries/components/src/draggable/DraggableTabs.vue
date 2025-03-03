@@ -11,6 +11,7 @@
         :key="index"
         role="tab"
         as="template"
+        :custom-id="tab.id"
         class="draggable-tab tab"
         @click.capture.stop="setTab(tab.id)"
         @mousedown.capture.stop
@@ -142,6 +143,7 @@
   const setDraggable = () => {
     draggable.value?.destroy();
     draggable.value = useDraggable(toDrag, tabItems, {
+      dataIdAttr: "custom-id",
       animation: 150,
       group: props.group,
       filter: ".non-draggable",
@@ -151,6 +153,7 @@
         setTab(firstElementId());
       },
       async onSort(event) {
+        // @ts-ignore data does not exist on SortableEvent
         const id = event?.data?.id;
         if (id) {
           if (tabItems.value.find((tab) => tab.id === id)) {
