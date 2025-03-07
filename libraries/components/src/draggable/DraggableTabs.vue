@@ -5,10 +5,10 @@
       ref="toDrag"
       class="tabs tabs-lifted"
     >
-      <!-- workaround: using index as key, tab.id does not work -->
+      <!-- workaround: using only id or index does not work, probably rerender needs to guaranteed -->
       <Tab
         v-for="(tab, index) in tabItems"
-        :key="index"
+        :key="`${tab.id}-${index}`"
         role="tab"
         as="template"
         :custom-id="tab.id"
@@ -63,7 +63,7 @@
     <TabPanels>
       <TabPanel
         v-for="(tab, index) in tabItems"
-        :key="tab.id"
+        :key="`${tab.id}-${index}`"
         :class="{ 'p-4': tab.noPadding !== true }"
       >
         <slot />
@@ -143,7 +143,7 @@
   const setDraggable = () => {
     draggable.value?.destroy();
     draggable.value = useDraggable(toDrag, tabItems, {
-      dataIdAttr: "custom-id",
+      //dataIdAttr: "custom-id",
       animation: 150,
       group: props.group,
       filter: ".non-draggable",
@@ -188,5 +188,8 @@
   }
   .draggable-tab:active {
     cursor: grabbing;
+  }
+  .sortable-drag {
+    opacity: 0;
   }
 </style>
