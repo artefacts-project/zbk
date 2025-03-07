@@ -1,19 +1,20 @@
 <template>
   <div
     @dblclick="select"
-    class="flex flex-col shadow rounded-xl bg-primary-content"
+    class="flex flex-col shadow rounded-xl bg-primary-content cursor-grab"
   >
-    <SimpleEditor
-      class="p-2"
-      :editor-events="editorEvents"
-      :content="content"
-      @changed="onChange"
-
-    />
-    <div class="flex justify-end p-1">
+    <div class="p-2">
+      <SimpleEditor
+        class="cursor-auto"
+        :editor-events="editorEvents"
+        :content="content"
+        @changed="onChange"
+      />
+    </div>
+    <div class="flex justify-end p-1 cursor-grab">
       <button
         @click="create()"
-        class="btn btn-sm border-0 shadow-none bg-transparent hover:bg-base-200"
+        class="btn btn-sm border-0 shadow-none bg-transparent hover:bg-base-200 cursor-auto"
       >
         <PencilIcon class="h-4" />
         Create
@@ -38,6 +39,8 @@
     select: [];
   }>();
 
+  const content = ref(props.zettel.asString);
+
   const clearWithContent = (content: string[]) => {
     const insertions: Insertion[] = content.map((text) => ({
       type: "paragraph",
@@ -51,12 +54,12 @@
     onClearAndReset: null,
     onInsert: null,
     onUpdate: null
-  }
+  };
 
   const editorEvents: EditorEvents = {
-    onClearAndReset: (cb) => callbacks.onClearAndReset = cb,
-    onInsert: (cb) => callbacks.onInsert = cb,
-    onUpdate: (cb) => callbacks.onUpdate = cb
+    onClearAndReset: (cb) => (callbacks.onClearAndReset = cb),
+    onInsert: (cb) => (callbacks.onInsert = cb),
+    onUpdate: (cb) => (callbacks.onUpdate = cb)
   };
 
   const onChange = (data: string[]) => {
@@ -71,13 +74,12 @@
     emit("select");
   };
 
-  const content = ref(props.zettel.asString);
-
   watch(
     () => props.zettel,
     (zettel) => {
-      callbacks.onClearAndReset?.(clearWithContent(zettel.asArray))
-    }, { immediate: true }
+      callbacks.onClearAndReset?.(clearWithContent(zettel.asArray));
+    },
+    { immediate: true }
   );
 </script>
 

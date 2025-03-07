@@ -1,1 +1,1 @@
-export { default as SimpleCanvas } from "./SimpleCanvas.vue";
+export { default as SimpleCanvas } from "./SimpleCanvas.vue"

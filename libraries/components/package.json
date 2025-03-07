@@ -24,6 +24,6 @@
   "scripts": {
     "build": "vue-tsc"
   },
-  "types": "dist/index.d.ts",
-  "type": "module"
+  "type": "module",
+  "types": "dist/index.d.ts"
 }

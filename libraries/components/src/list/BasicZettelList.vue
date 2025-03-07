@@ -71,8 +71,7 @@
     draggable.value = useDraggable(draggableContainer, displayedList, {
       animation: 150,
       group: draggableGroupIdentifier,
-      dataIdAttr: "custom-id",
-      filter: ".non-draggable",
+      filter: ".non-draggable, input, button, div.ce-toolbar__actions",
 
       async onRemove(e) {
         const event = e as DraggableEvent;
@@ -106,4 +105,8 @@
   });
 </script>
 
-<style scoped></style>
+<style scoped>
+  .sortable-drag {
+    opacity: 0;
+  }
+</style>

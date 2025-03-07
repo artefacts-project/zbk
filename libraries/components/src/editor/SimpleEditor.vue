@@ -23,6 +23,11 @@
   const editorElement = ref<HTMLElement | undefined>();
 
   onMounted(() => {
+    editorElement.value?.addEventListener(
+      "drop",
+      (event) => event.stopImmediatePropagation(), //disable drop handler from editorjs
+      true
+    );
     editor.value = new EditorJS({
       holder: editorElement.value,
       minHeight: 0,
