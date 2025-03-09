@@ -13,11 +13,13 @@
     </div>
     <div class="flex justify-end p-1 cursor-grab">
       <button
+        class="btn btn-sm border-0 shadow-none bg-transparent hover:bg-base-200 cursor-pointer"
         @click="create()"
-        class="btn btn-sm border-0 shadow-none bg-transparent hover:bg-base-200 cursor-auto"
+        @mouseover="showCreateLabel = true"
+        @mouseleave="showCreateLabel = false"
       >
+        <span v-if="showCreateLabel">Create</span>
         <PencilIcon class="h-4" />
-        Create
       </button>
     </div>
   </div>
@@ -40,6 +42,7 @@
   }>();
 
   const content = ref(props.zettel.asString);
+  const showCreateLabel = ref(false);
 
   const clearWithContent = (content: string[]) => {
     const insertions: Insertion[] = content.map((text) => ({

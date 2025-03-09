@@ -7,7 +7,10 @@
         @add="addNewZettel"
       />
     </div>
-    <div ref="draggableContainer">
+    <div
+      ref="draggableContainer"
+      class="min-h-36"
+    >
       <div
         v-for="zettel in displayedList"
         :key="zettel.id"
@@ -63,7 +66,7 @@
 
   const addNewZettel = () => {
     const zettel = new ZettelService();
-    list.addToList(zettel);
+    list.addToList(zettel, 0);
     updateUIList();
   };
 

@@ -63,7 +63,8 @@ export class ListService {
 
   addToList(zettel: ZettelService, index?: number) {
     if (!this.persisted.value) {
-      if (index) {
+      // @ts-ignore - Number.isInteger is not used for type checking
+      if (Number.isInteger(index) && index >= 0 && index < this.list.value.length) {
         this.list.value = [
           ...this.list.value.slice(0, index),
           zettel,
