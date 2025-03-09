@@ -1,22 +1,30 @@
 <template>
-  <div class="navbar bg-base-300 px-2 py-0 border-b border-secondary-content">
+  <div class="navbar min-h-2 bg-base-300 px-2 py-0 border-b border-secondary-content">
     <div class="navbar-start">
       <RouterLink
         to="/"
-        class="btn ml-5 btn-ghost text-xl gap-0"
+        class="btn h-10 min-h-10 ml-10 btn-ghost text-xl gap-0"
       >
-        <span class="ml-[7px] font-bold">arte</span>
-        <span class="italic font-medium mt-[8px] mr-[2px] ml-[-2px]">f</span>
-        <span class="italic font-medium">acts</span>&nbsp; project
+          <span class="font-bold">arte</span>
+          <span class="italic font-medium mt-[8px] mr-[2px] ml-[-2px]">f</span>
+          <span class="italic font-medium">acts</span>
       </RouterLink>
     </div>
     <div class="navbar-center flex gap-2">
       <ul class="menu menu-horizontal px-1">
         <li>
-          <RouterLink to="/organizing-tabs">Organizing Tabs</RouterLink>
+          <RouterLink
+            to="/organizing-tabs"
+            class="py-1"
+            >Organizing Tabs</RouterLink
+          >
         </li>
         <li>
-          <RouterLink to="/shifting-canvas">Shifting Canvas</RouterLink>
+          <RouterLink
+            to="/shifting-canvas"
+            class="py-1"
+            >Shifting Canvas</RouterLink
+          >
         </li>
       </ul>
     </div>
@@ -25,7 +33,7 @@
         <div
           tabindex="0"
           role="button"
-          class="btn w-36 m-1"
+          class="btn h-6 min-h-6 w-36 m-1"
         >
           {{ currentTheme }}
           <ChevronDownIcon class="h-3 w-3 opacity-60" />
@@ -84,7 +92,7 @@
     "sunset"
   ];
 
-  const currentTheme = ref("winter");
+  const currentTheme = ref("light");
 
   const setTheme = (newTheme: string) => {
     document.documentElement.setAttribute("data-theme", newTheme);
