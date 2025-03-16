@@ -6,6 +6,9 @@
   "dependencies": {
     "@artefacts/components": "0.0.1",
     "@artefacts/core": "0.0.1",
+    "@headlessui/vue": "^1.7.23",
+    "@heroicons/vue": "^2.2.0",
+    "pinia": "^3.0.1",
     "rxjs": "^7.8.1"
   },
   "main": "index",
