@@ -3,7 +3,7 @@
     <TabList
       role="tablist"
       ref="toDrag"
-      class="tabs tabs-lifted"
+      class="tabs tabs-lift"
     >
       <!-- workaround: using only id or index does not work, probably rerender needs to guaranteed -->
       <Tab

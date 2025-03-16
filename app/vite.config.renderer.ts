@@ -2,8 +2,7 @@ import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
-import tailwind from "tailwindcss";
-import autoprefixer from "autoprefixer";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,19 +18,7 @@ export default defineConfig({
             "@artefacts/shifting-canvas": path.resolve(__dirname, "../prototypes/shifting-canvas/index.ts")
         },
     },
-    plugins: [vue()],
-    // css: {
-    //     postcss: path.resolve(__dirname, "../../postcss.config.js") //TODO: check why this doesn't work
-    // },
-    //instead adding postcss config here:
-    css: {
-        postcss: {
-          plugins: [
-            tailwind(path.resolve(__dirname, '../tailwind.config.js')),
-            autoprefixer,
-          ],
-        },
-      },
+    plugins: [vue(), tailwindcss()],
     server: {
         port: 8081
     }

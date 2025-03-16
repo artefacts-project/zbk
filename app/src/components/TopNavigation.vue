@@ -11,7 +11,7 @@
       </RouterLink>
     </div>
     <div class="navbar-center flex gap-2">
-      <ul class="menu menu-horizontal px-1">
+      <ul class="menu w-full menu-horizontal px-1">
         <li>
           <RouterLink
             to="/organizing-tabs"

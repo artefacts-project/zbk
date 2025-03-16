@@ -2,7 +2,7 @@
   <div class="relative h-screen w-screen overflow-hidden">
     <div class="absolute top-4 left-4 z-10">
       <button
-        class="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600"
+        class="px-4 py-2 bg-blue-500 text-white rounded-sm shadow hover:bg-blue-600"
         @click="centerCanvas"
       >
         Center Canvas
@@ -18,7 +18,7 @@
         Grid Mode:
         <select
           v-model="gridMode"
-          class="ml-2 border rounded px-2"
+          class="ml-2 border rounded-sm px-2"
         >
           <option
             v-for="(mode, index) in gridModes"
